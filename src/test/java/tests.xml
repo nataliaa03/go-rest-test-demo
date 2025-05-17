@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="API RESTAssured Demo tests">
+
+    <test name="Users Test">
+        <classes>
+            <class name="users.CRUDUserTest"/>
+            <class name="users.GetUsersTest"/>
+            <class name="users.GetUserTest"/>
+        </classes>
+    </test>
+
+    <test name="Posts Test">
+        <classes>
+            <class name="posts.CRUDPostTest"/>
+        </classes>
+    </test>
+
+</suite>
