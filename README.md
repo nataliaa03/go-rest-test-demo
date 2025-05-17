@@ -1,9 +1,12 @@
-To run tests you need to:
-- login and get your API token from:
-https://gorest.co.in/
-- set your system variable (or configuration environment variable in IDE): GOREST_TOKEN=your_api_token
+# Requirements
+To run the tests there must be installed and running docker on your machine.
 
-In your terminal:
+# Running tests
+To run tests you need to:
+- register, login and get your API token from: https://gorest.co.in/
+- set your system variable (or configuration environment variable in IDE): `GOREST_TOKEN=your_api_token`
+
+- in your terminal use commands:
 `docker-compose run --rm rest-assured bash`
 `cd /app`
 `ls`
