@@ -15,7 +15,7 @@ public class KafkaUtils {
     protected static KafkaProducer producer;
 
     public static void sendUsersMessages() throws JsonProcessingException {
-        producer = generateProducerWithProperties();
+        producer = setupKafkaProducer();
 
         User usr1 = new User("Nat", "nat2902@gmail.com", "female", "active");
         sendMessage("users", "user", usr1);
@@ -30,7 +30,7 @@ public class KafkaUtils {
         }
     }
 
-    private static KafkaProducer generateProducerWithProperties() {
+    private static KafkaProducer setupKafkaProducer() {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092"); //name of the service from docker-compose
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
