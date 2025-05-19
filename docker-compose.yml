@@ -1,6 +1,8 @@
 version: "3"
 services:
   rest-assured:
+    depends_on:
+      - kafka
     image: maven:3.9.6-eclipse-temurin-17
     volumes:
       - .:/app
@@ -30,3 +32,12 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: kafka:9092
+    depends_on:
+      - kafka
