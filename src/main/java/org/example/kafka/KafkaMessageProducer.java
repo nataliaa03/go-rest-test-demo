@@ -1,4 +1,4 @@
-package users;
+package org.example.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +10,7 @@ import org.example.User;
 
 import java.util.Properties;
 
-public class KafkaUtils {
+public class KafkaMessageProducer {
 
     protected static KafkaProducer producer;
 
