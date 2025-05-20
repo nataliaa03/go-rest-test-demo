@@ -6,20 +6,20 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.example.User;
+import org.example.model.User;
 
+import java.util.List;
 import java.util.Properties;
 
 public class KafkaMessageProducer {
 
     protected static KafkaProducer producer;
 
-    public static void sendUsersMessages() throws JsonProcessingException {
+    public static void sendUsersMessages(List<User> usersList) throws JsonProcessingException {
         producer = setupKafkaProducer();
-
-        User usr1 = new User("Nat", "nat2902@gmail.com", "female", "active");
-        sendMessage("users", "user", usr1);
-
+        for (User user : usersList) {
+            sendMessage("users", "user", user);
+        }
         producer.flush();
         closeProducer();
     }

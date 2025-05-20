@@ -4,8 +4,8 @@ import groovy.util.logging.Slf4j;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.assertj.core.api.SoftAssertions;
-import org.example.Post;
-import org.example.User;
+import org.example.model.Post;
+import org.example.model.User;
 import org.example.service.PostsService;
 import org.example.service.UsersService;
 import org.example.utils.RestAssuredUtils;
@@ -23,6 +23,12 @@ public class CRUDPostTest {
     private static final String POST_TITLE_2 = "First Test Post 123 - Second";
     private static final String POST_BODY = "Body Of the first Post 123$%^& :)";
     private static int userId;
+
+    @BeforeMethod
+    public static void cleanUpBefore() {
+        cleanUpPosts();
+    }
+
 
     @Test
     public static void shouldPostBeAddedCorrectly() {
@@ -84,22 +90,23 @@ public class CRUDPostTest {
         assertThat(postsList2size).isEqualTo(0);
     }
 
+
     @AfterMethod
     public static void cleanUpAfter() {
-        cleanUp();
+        cleanUpPosts();
     }
 
-    @BeforeMethod
-    public static void cleanUpBefore() {
-        cleanUp();
-    }
 
-    private static void cleanUp() {
+
+    private static void cleanUpPosts() {
         List<Post> userPosts = RestAssuredUtils.readResponseJsonPath(PostsService.getUserPostsByUserId(userId)).getList("$", Post.class);
         if (userPosts.size() > 0) {
+            System.out.println("Cleaned " + userPosts.size() + " posts.");
             for (Post p : userPosts) {
                 PostsService.deletePostByPostId(p.id);
             }
+        } else {
+            System.out.println("User " + userId + " has no posts.");
         }
 
     }
