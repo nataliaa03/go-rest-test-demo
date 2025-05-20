@@ -1,4 +1,4 @@
-package users;
+package org.example.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,20 +6,20 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.example.User;
+import org.example.model.User;
 
+import java.util.List;
 import java.util.Properties;
 
-public class KafkaUtils {
+public class KafkaMessageProducer {
 
     protected static KafkaProducer producer;
 
-    public static void sendUsersMessages() throws JsonProcessingException {
-        producer = generateProducerWithProperties();
-
-        User usr1 = new User("Nat", "nat2902@gmail.com", "female", "active");
-        sendMessage("users", "user", usr1);
-
+    public static void sendUsersMessages(List<User> usersList) throws JsonProcessingException {
+        producer = setupKafkaProducer();
+        for (User user : usersList) {
+            sendMessage("users", "user", user);
+        }
         producer.flush();
         closeProducer();
     }
@@ -30,7 +30,7 @@ public class KafkaUtils {
         }
     }
 
-    private static KafkaProducer generateProducerWithProperties() {
+    private static KafkaProducer setupKafkaProducer() {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092"); //name of the service from docker-compose
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());

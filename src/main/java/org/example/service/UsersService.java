@@ -1,13 +1,10 @@
 package org.example.service;
 
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import org.example.User;
+import org.example.model.User;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UsersService extends BaseService {
     public static final String url = baseUrl + "/users";

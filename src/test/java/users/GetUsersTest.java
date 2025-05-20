@@ -2,15 +2,15 @@ package users;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.assertj.core.api.SoftAssertions;
-import org.example.User;
+import org.example.model.User;
+import org.example.kafka.KafkaMessageProducer;
 import org.example.service.UsersService;
 import org.testng.annotations.Test;
 
 public class GetUsersTest {
 
     @Test
-    public void shouldUsersHaveProperData() throws JsonProcessingException {
-        KafkaUtils.sendUsersMessages();
+    public void shouldUsersHaveProperData() {
         User firstUser = UsersService.getUsersList().get(0);
 
         int userId = firstUser.id;
